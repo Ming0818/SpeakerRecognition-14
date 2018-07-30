@@ -51,18 +51,17 @@ public class Recognizer {
 		DTW dtw = new DTW();
 		comparisonResults = new ComparisonResults(listOfProcessedSamples.size(),19,numberOfSpeakers);//19 features to compare
 		
-		for(int i=0;i<comparisonResults.getColumns();i++)//number of samples
+		for(int i=0;i<comparisonResults.getNumberOfSamples();i++)//number of samples
 		{
-			
+		
 			comparisonResults.setSpeakerID(i, listOfProcessedSamples.get(i).getSpeakerID());
 			comparisonResults.setSampleID(i,  listOfProcessedSamples.get(i).getSampleID());
-	
-
 			comparisonResults.setValue(i, 0, dtw.calcDTW(sampleToRecognize.getEnergy(), listOfProcessedSamples.get(i).getEnergy()));
 			comparisonResults.setValue(i, 1,dtw.calcDTW(sampleToRecognize.getZcr(), listOfProcessedSamples.get(i).getZcr()));
 			comparisonResults.setValue(i, 2,dtw.calcDTW(sampleToRecognize.getCentroid(), listOfProcessedSamples.get(i).getCentroid()));
 			comparisonResults.setValue(i, 4,dtw.calcDTW(sampleToRecognize.getAverageCentroid(), listOfProcessedSamples.get(i).getAverageCentroid()));
 			comparisonResults.setValue(i, 5,dtw.calcDTW(sampleToRecognize.getMedianCentroid(), listOfProcessedSamples.get(i).getMedianCentroid()));
+			//13 MFCC
 			for (int j = 0; j < sampleToRecognize.getWspMFCC().length; j++) {
 				comparisonResults.setValue(i, 6+j,dtw.calcDTW(sampleToRecognize.getWspMFCC()[j], listOfProcessedSamples.get(i).getWspMFCC()[j]));
 			}

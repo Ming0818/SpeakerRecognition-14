@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.DisplayResultsController">
+   <children>
+      <Label fx:id="lResult" alignment="CENTER" layoutX="87.0" layoutY="30.0" prefHeight="29.0" prefWidth="533.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <LineChart fx:id="testChart" layoutX="15.0" layoutY="118.0" prefHeight="251.0" prefWidth="326.0" title="Test Sample">
+        <xAxis>
+          <NumberAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <LineChart fx:id="recognizedChart" layoutX="364.0" layoutY="118.0" prefHeight="251.0" prefWidth="326.0" title=" Sample">
+         <xAxis>
+            <NumberAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </LineChart>
+      <RadioButton fx:id="rbEnergy" layoutX="370.0" layoutY="403.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonEnergy" text="Energy">
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroup" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="rbCentroid" layoutX="452.0" layoutY="403.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonCentroid" text="Centroid" toggleGroup="$toggleGroup" />
+      <RadioButton fx:id="rbZCR" layoutX="573.0" layoutY="403.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonZCR" text="Zero-Crossing Rate" toggleGroup="$toggleGroup" />
+      <RadioButton fx:id="rbRollOff" layoutX="370.0" layoutY="430.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonRollOff" prefHeight="17.0" prefWidth="87.0" text="Roll-Off" toggleGroup="$toggleGroup" />
+        
+       <RadioButton fx:id="rbMFCC1" layoutX="67.0" layoutY="403.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC1" text="MFCC 1" toggleGroup="$toggleGroup" />
+      
+      <RadioButton fx:id="rbMFCC2" layoutX="146.0" layoutY="403.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC2" text="MFCC 2" toggleGroup="$toggleGroup" />
+      <RadioButton fx:id="rbMFCC3" layoutX="220.0" layoutY="403.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC3" text="MFCC 3" toggleGroup="$toggleGroup" />
+      <RadioButton fx:id="rbMFCC4" layoutX="293.0" layoutY="403.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC4" text="MFCC 4" toggleGroup="$toggleGroup" />
+      <RadioButton fx:id="rbMFCC5" layoutX="67.0" layoutY="430.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC5" prefHeight="17.0" prefWidth="87.0" text="MFCC 5" toggleGroup="$toggleGroup" />
+      <RadioButton fx:id="rbMFCC6" layoutX="146.0" layoutY="430.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC6" prefHeight="17.0" prefWidth="87.0" text="MFCC 6" toggleGroup="$toggleGroup" />
+      <RadioButton fx:id="rbMFCC7" layoutX="220.0" layoutY="430.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC7" prefHeight="17.0" prefWidth="87.0" text="MFCC 7" toggleGroup="$toggleGroup" />
+      <RadioButton fx:id="rbMFCC8" layoutX="293.0" layoutY="430.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC8" prefHeight="17.0" prefWidth="87.0" text="MFCC 8" toggleGroup="$toggleGroup" />
+      <RadioButton fx:id="rbMFCC9" layoutX="67.0" layoutY="458.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC9" prefHeight="17.0" prefWidth="87.0" text="MFCC 9" toggleGroup="$toggleGroup" />
+      <RadioButton fx:id="rbMFCC10" layoutX="146.0" layoutY="458.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC10" prefHeight="17.0" prefWidth="87.0" text="MFCC 10" toggleGroup="$toggleGroup" />
+      <ChoiceBox fx:id="cbShowAnotherSample" layoutX="337.0" layoutY="483.0" prefWidth="150.0" />
+      <Button fx:id="bPlayTest" layoutX="146.0" layoutY="369.0" mnemonicParsing="false" onAction="#ActionOnPlayTest" text="Play" />
+      <Button fx:id="bPlaySample" layoutX="501.0" layoutY="369.0" mnemonicParsing="false" onAction="#ActionOnPlaySample" text="Play" />
+      <Button fx:id="bBack" layoutX="568.0" layoutY="483.0" mnemonicParsing="false" onAction="#ActionOnBack" text="Back" />
+      <RadioButton fx:id="rbMFCC11" layoutX="220.0" layoutY="458.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC11" prefHeight="17.0" prefWidth="87.0" text="MFCC 11">
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroup1" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="rbMFCC12" layoutX="293.0" layoutY="458.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC12" prefHeight="17.0" prefWidth="87.0" text="MFCC 12">
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroup2" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="rbMFCC13" layoutX="370.0" layoutY="458.0" mnemonicParsing="false" onAction="#ActionOnRadioButtonMFCC13" prefHeight="17.0" prefWidth="87.0" text="MFCC 13">
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroup3" />
+         </toggleGroup>
+      </RadioButton>
+   </children>
+</AnchorPane>
