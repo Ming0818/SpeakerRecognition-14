@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoadExistingSamplesController">
+   <children>
+      <Button fx:id="bLoad" layoutX="75.0" layoutY="234.0" mnemonicParsing="false" onAction="#ActionOnLoadSamples" text="Load samples" />
+      <Button fx:id="bRecord" disable="true" layoutX="401.0" layoutY="234.0" mnemonicParsing="false" onAction="#ActionOnRecord" prefHeight="25.0" prefWidth="172.0" text="Record sample to recognize" />
+      <Button fx:id="bRecognize" disable="true" layoutX="178.0" layoutY="320.0" mnemonicParsing="false" onAction="#ActionOnRecognize" prefHeight="25.0" prefWidth="88.0" text="Recognize" />
+      <ProgressBar fx:id="pbProgress" layoutX="188.0" layoutY="164.0" prefWidth="200.0" progress="0.0" />
+      <Label fx:id="lProcess" alignment="CENTER" layoutX="214.0" layoutY="182.0" prefHeight="17.0" prefWidth="251.0" />
+      <Button fx:id="bLoadtoRecognize" alignment="CENTER" disable="true" layoutX="206.0" layoutY="234.0" mnemonicParsing="false" onAction="#ActionOnLoadToRecognize" prefHeight="25.0" prefWidth="163.0" text="Load sample to recognize" />
+      <Label fx:id="lProcess1" alignment="CENTER" layoutX="163.0" layoutY="116.0" prefHeight="17.0" prefWidth="251.0" />
+      <Button fx:id="bBack" layoutX="331.0" layoutY="320.0" mnemonicParsing="false" onAction="#ActionOnBack" text="Back" />
+   </children>
+</AnchorPane>

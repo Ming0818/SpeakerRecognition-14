@@ -1,9 +1,10 @@
+/*Implementation from https://github.com/castamir/Mogger/blob/master/src/cz/vutbr/fit/mogger/DTW.java*/
+
 package calculations;
 
  
 import static java.lang.Math.sqrt;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +13,6 @@ public class DTW {
     public DTW() {
 
     }
-
     public double calcDTW(double [] frameToCheck, double [] frameFromBase)
     {
         List<Double[]> path= new LinkedList<Double[]>();
@@ -36,29 +36,18 @@ public class DTW {
             accumulated_cost[0][i] = distances[0][i] + accumulated_cost[0][i-1];    
  
         }
- 
         for (int i=1;i<sizeN;i++)
         {
         accumulated_cost[i][0] = distances[i][ 0] + accumulated_cost[i-1][ 0] ;   
  
         }
-        
         for (int i=1;i<sizeN;i++)
         {
         	for (int j=1;j<sizeM;j++)
         	{
         	double temp_min=Math.min(accumulated_cost[i-1][ j-1], accumulated_cost[i-1][ j]);
   accumulated_cost[i][j] =  Math.min(accumulated_cost[i][ j-1],temp_min) + distances[i][ j];
-      		
         	}
-        }
-        for (int i=0;i<sizeN;i++)
-        {
-        	for (int j=0;j<sizeM;j++)
-        	{
-        		//System.out.print(  accumulated_cost[i][j]+" ");
-        	}
-        	//System.out.println("");
         }
         int i = sizeN-1;
         int j = sizeM-1;
@@ -90,7 +79,6 @@ public class DTW {
 
         	 result[0]=(double) j;
         	 result[1]=(double) i;
-        	 //System.out.println("wyswietlam"+result[0]+" "+result[1]);
         	 path.add(result);
         	 
         	 
@@ -101,7 +89,6 @@ public class DTW {
         	 
         }
           
- 	 //path.forEach((d)->System.out.println(d[0]+" "+d[1]));
 	   double cost=0.0;
 
 	   for (int k=0;k<path.size();k++)
@@ -112,20 +99,17 @@ public class DTW {
 
 
 	   }
-	  // System.out.println(cost);
              
              
 
      	return cost;
     }
-    // pocita hodnotu DTW
     public int dtw_check (int[][] acc_gesture, int[][] gesture) {
 
         int dtw = 0;
 
         int size = acc_gesture[0].length;
 
-        // LOKALNI DIFERENCE
         int n = size;
         int m = size;
 
@@ -152,17 +136,14 @@ public class DTW {
 
         }
 
-        // GLOBALNI DIFERENCE
         int[][] global_distance = new int[n][m];
 
         global_distance[0][0] = local_distance[0][0];
 
-        // prvni radek
         for(int i=1; i<n; i++) {
             global_distance[i][0] = local_distance[i][0] + global_distance[i - 1][0];
         }
 
-        // prvni sloupec
         for(int k=1; k<m; k++) {
             global_distance[0][k] = local_distance[0][k] + global_distance[0][k-1];
         }
@@ -186,7 +167,6 @@ public class DTW {
     	double result=Math.sqrt((x2 - x1)*(x2 - x1));
     	return result;
     }
-    // spocita diferenci 2 vektoru
     public int euclidean_distance (double x1, double x2, double y1, double y2, double z1, double z2) {
         int ed = 0;
 
@@ -195,7 +175,6 @@ public class DTW {
         return ed;
     }
 
-    // return minimum among integer x, y and z
     public int min(int x, int y, int z)
     {
         if(( x <= y ) && ( x <= z )) {

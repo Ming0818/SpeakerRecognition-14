@@ -17,14 +17,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package calculations;
 
-import java.awt.Color;
-import java.io.File;
 
-import javax.swing.JFrame;
 
-import org.math.plot.Plot2DPanel;
 
-import calculations.WavFile;
 
 
 /**
@@ -76,7 +71,6 @@ public class FFT
 	 */
 	public double[] generateSignal(int fs,int T)
 	{
-			double[] signal = new double[fs*T];
 			double[] buffer=new double[1];
  
 		return buffer;
@@ -88,9 +82,7 @@ public class FFT
 	 */
 	public double  [] calculateFramesFFT(double [] bufferFrames)
 	{
-		int fs=1024;
-		int T=1;
- 		
+
 		// instantiate classes to perform calculations
 		CalcReal calcReal = new CalcReal();
 		CalcImag calcImag = new CalcImag();
@@ -108,7 +100,7 @@ public class FFT
 		// initialize arrays
 		double[] amplitude = new double[K];
 		double[] phase = new double[K];
-		double[] cosSignal = new double[N];
+		//double[] cosSignal = new double[N];
 		double[] degreesSignal = new double[N];
 		 IMCSum = new double[K];
 		double[] radiansSignal = new double[N];
@@ -128,37 +120,16 @@ public class FFT
 		// get the real coefficients
 		for (int i = 0; i < K; i++)
 		{
+			
 			REC[i] = calcReal.calc(radiansSignal, bufferFrames, i + 1);
-		}
-
-		// sum the real coefficients
-		for (int i = 0; i < K; i++)
-		{
 			RECSum[i] = (sumC.sum(REC[i], (double) NN));
-			// System.out.println(RECSum[i]);
-		}
-
-		// get the imag coefficients
-		for (int i = 0; i < K; i++)
-		{
 			IMC[i] = calcImag.calc(radiansSignal, bufferFrames, i + 1);
-		}
-
-		// sum the imag coefficients
-		for (int i = 0; i < K; i++)
-		{
 			IMCSum[i] = (sumC.sum(IMC[i], (double) NN));
-			// System.out.println(IMCSum[i]);
-		}
-
-		// calculate amplitude (Fourier coefficients)
-		// a[i] = 2(abs(RECSum[i]*abs(IMCSum[i])
-		for (int i = 0; i < K; i++)
-		{
 			amplitude[i] = 2 * (Math.sqrt(Math.pow(RECSum[i], 2)
 					+ Math.pow(IMCSum[i], 2)));
-			// System.out.println(amplitude[i]);
 		}
+
+		
 
 		// calculate phase
 		// atan(abs(b/a))
@@ -169,25 +140,7 @@ public class FFT
  			phase[i] = Math.atan(temp);
 			// System.out.println(phase[i]);
 		}
-		/*
-		Plot2DPanel plot = new Plot2DPanel();
-		
-		plot.addLinePlot("Signal", new Color(255,68,68), amplitude);
-		/*plot.addLinePlot("Harmonic #1", new Color(51,181,229), REC[0]);
-		plot.addLinePlot("Harmonic #2", new Color(153,204,0), REC[1);
-		plot.addLinePlot("Harmonic #3", new Color(255,187,51), REC[2]);
-		plot.addLinePlot("Harmonic #4", new Color(170,102,204), REC[3]);
-		
-		  // define the legend position
-        plot.addLegend("SOUTH");
-		
-		// put the PlotPanel in a JFrame like a JPanel
-        JFrame frame = new JFrame("FFT");
-        frame.setSize(600, 600);
-        frame.setContentPane(plot);
-        frame.setVisible(true);
-*/
-		// produce output
+
  
 		return amplitude;
 	}
