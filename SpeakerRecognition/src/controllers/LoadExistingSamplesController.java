@@ -32,20 +32,21 @@ public class LoadExistingSamplesController {
 	@FXML
 	Label lProcess, lProcess1;
 	@FXML
-	Button bLoad, bRecord, bRecognize, bLoadtoRecognize,bBack;
+	Button bLoad, bRecord, bRecognize, bLoadtoRecognize, bBack;
 	@FXML
 	ProgressBar pbProgress;
 	Stage primaryStage;
 	Scene parentScene;
 	private LoadSample task;
-	private boolean loadSampleTaskIsRunning=false;
+	private boolean loadSampleTaskIsRunning = false;
 	List<ProcessingAudio> listOfProcessedSamples = new Vector<ProcessingAudio>();
 	ProcessingAudio sampleToRecognize;
 	int numberOfSpeakers = 0;
-	public void setParentScene(Scene scene)
-	{
-		parentScene=scene;
+
+	public void setParentScene(Scene scene) {
+		parentScene = scene;
 	}
+
 	class LoadSample extends Task<Void> {
 		Pattern compiledPattern = Pattern.compile("no.");
 		final File folder = new File("src\\samples");
@@ -54,15 +55,14 @@ public class LoadExistingSamplesController {
 
 		@Override
 		protected Void call() throws Exception {
-			loadSampleTaskIsRunning=true;
+			loadSampleTaskIsRunning = true;
 
 			Matcher matcher;
 
 			for (File fileEntry : folder.listFiles()) {
-				 if (isCancelled())
-		            {
-		                throw new InterruptedException();
-		            }
+				if (isCancelled()) {
+					throw new InterruptedException();
+				}
 				i++;
 				updateProgress(i, folder.listFiles().length);
 				matcher = compiledPattern.matcher(fileEntry.getPath());
@@ -92,7 +92,7 @@ public class LoadExistingSamplesController {
 				}
 			}
 			updateProgress(folder.listFiles().length + 1, folder.listFiles().length);
-			loadSampleTaskIsRunning=false;
+			loadSampleTaskIsRunning = false;
 
 			// TODO Auto-generated method stub
 			return null;
@@ -107,7 +107,7 @@ public class LoadExistingSamplesController {
 		@Override
 		protected void updateProgress(double workdone, double max) {
 			if (workdone <= max) {
-				updateMessage("Processing " + (int)workdone + " file out of " + (int)max);
+				updateMessage("Processing " + (int) workdone + " file out of " + (int) max);
 			} else {
 
 				updateMessage("Processing finished");
@@ -127,10 +127,6 @@ public class LoadExistingSamplesController {
 		protected Void call() throws Exception {
 
 			updateMessage("Processing");
-			System.out.println("task");
-			System.out.println("task");
-			System.out.println("task");
-			System.out.println("task");
 
 			sampleToRecognize = new ProcessingAudio("src\\sampleToRecognize\\SampleToRecognize.wav");
 			bRecognize.setDisable(false);
@@ -154,9 +150,7 @@ public class LoadExistingSamplesController {
 	}
 
 	public void ActionOnLoadSamples(ActionEvent event) throws InterruptedException, Exception {
-		
 
-		
 		bLoad.setDisable(true);
 		bRecord.setDisable(true);
 		pbProgress.setVisible(true);
@@ -172,25 +166,21 @@ public class LoadExistingSamplesController {
 
 	public void ActionOnRecord(ActionEvent event) throws InterruptedException, Exception {
 
-
 		pbProgress.setVisible(false);
 
 		bLoad.setDisable(true);
 		bRecord.setDisable(true);
 		bLoadtoRecognize.setDisable(true);
 
-		
+		Recorder record = new Recorder();
+		record.main("src\\sampleToRecognize\\SampleToRecognize.wav", 2);
+		// code goes here.
+		sampleToRecognize = new ProcessingAudio("src\\sampleToRecognize\\SampleToRecognize.wav");
 
-		
-		    	Recorder record = new Recorder();
-				record.main("src\\sampleToRecognize\\SampleToRecognize.wav",2);
-		         // code goes here.
-				sampleToRecognize = new ProcessingAudio("src\\sampleToRecognize\\SampleToRecognize.wav");
-
-
-			bRecognize.setDisable(false);
+		bRecognize.setDisable(false);
 
 	}
+
 	@FXML
 	public void ActionOnRecognize(ActionEvent event) throws InterruptedException, Exception {
 		pbProgress.setVisible(false);
@@ -209,7 +199,7 @@ public class LoadExistingSamplesController {
 		primaryStage.setScene(scena);
 		primaryStage.setTitle("Results");
 		primaryStage.show();
-		Controller.setParentScene( ((Node) event.getSource()).getScene());
+		Controller.setParentScene(((Node) event.getSource()).getScene());
 		Controller.setStage(primaryStage, listOfProcessedSamples, recognizer.getRecognizedSample());
 
 	}
@@ -228,9 +218,10 @@ public class LoadExistingSamplesController {
 		th.start();
 
 	}
+
 	public void ActionOnBack(ActionEvent event) throws InterruptedException, Exception {
-		if(loadSampleTaskIsRunning)
-		task.cancel();
+		if (loadSampleTaskIsRunning)
+			task.cancel();
 		primaryStage.setScene(parentScene);
 
 	}

@@ -70,7 +70,7 @@ public class MainController implements Serializable {
 		loader.setLocation(this.getClass().getResource("ChoiceOfNumberOfSamples.fxml"));
 		AnchorPane stack = loader.load();
 		
-		ChoiceOfNumberOfSamplesController Controller = loader.getController();
+		RecordingOptionsController Controller = loader.getController();
 		Scene scena = new Scene(stack);
 		primaryStage.setScene(scena);
 		primaryStage.setTitle("Recording options");
