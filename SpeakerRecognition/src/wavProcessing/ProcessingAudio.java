@@ -20,6 +20,25 @@ public class ProcessingAudio implements Serializable {
 	private double[] buffer;
 	private int framesRead;
 	private int SampleRate;
+	private double Samplefor50ms;
+	private double[][] bufferFrames;
+	private double[][] bufferCalcFFT;
+	private double[] rollOff;
+	private double[] centroid;
+	private double averageCentroid;
+	private double[] medianCentroid;
+
+	private double[] zcr;
+
+	private double[][] wspMFCC;
+
+	private double[][] MFCC;
+	private MFCC mfcc;
+
+	protected final static int numMelFilters = 23;
+	protected final static double lowerFilterFreq = 133.3334;
+
+	private static final long serialVersionUID = 1L;
 	public String getFilePath() {
 		return filePath;
 	}
@@ -45,25 +64,7 @@ public class ProcessingAudio implements Serializable {
 		SampleID = sample;
 	}
 
-	private double Samplefor50ms;
-	private double[][] bufferFrames;
-	private double[][] bufferCalcFFT;
-	private double[] rollOff;
-	private double[] centroid;
-	private double averageCentroid;
-	private double[] medianCentroid;
 
-	private double[] zcr;
-
-	private double[][] wspMFCC;
-
-	private double[][] MFCC;
-	private MFCC mfcc;
-
-	protected final static int numMelFilters = 23;
-	protected final static double lowerFilterFreq = 133.3334;
-
-	private static final long serialVersionUID = 1L;
 
 	public ProcessingAudio(String a) {
 		try {
@@ -123,7 +124,6 @@ public class ProcessingAudio implements Serializable {
 
 			bufferCalcFFT = new double[numberOfFrames][(int) (Samplefor50ms) + 1];
 
-			start = System.currentTimeMillis();
 			// FFT
 			FFT fft = new FFT();
 			try {
@@ -136,25 +136,20 @@ public class ProcessingAudio implements Serializable {
 				System.err.println(e + " pusty ");
 				e.printStackTrace();
 			}
-			start = System.currentTimeMillis();
 			
 			for (int i = 0; i < numberOfFrames; i++) {
 				rollOff[i] = calcRollOff(bufferCalcFFT[i]);
 			}
 
-			start = System.currentTimeMillis();
 			
 			energy = calculateEnergy(bufferFrames, numberOfFrames, Samplefor50ms);
-			start = System.currentTimeMillis();
 			
 			// centroid
 			calculateCentroidFeatures();
 
-			start = System.currentTimeMillis();
 			
 			zcr = calculateZCR(bufferFrames, numberOfFrames, Samplefor50ms);
 
-			start = System.currentTimeMillis();
 			
 			// MFCC
 			mfcc = new MFCC();
@@ -165,7 +160,6 @@ public class ProcessingAudio implements Serializable {
 			wspMFCC = new double[MFCC[0].length][numberOfFrames];
 
 			mfccToWspMfcc();
-			start = System.currentTimeMillis();
 			// Close the wavFile
 			wavFile.close();
 
@@ -183,7 +177,6 @@ public class ProcessingAudio implements Serializable {
 		}
 		averageCentroid /= numberOfFrames;
 
-		System.out.println("Srednia Centroid " + averageCentroid);
 		double[] copyCentroid = new double[numberOfFrames];
 
 		for (int i = 0; i < centroid.length; i++) {
@@ -361,11 +354,6 @@ public class ProcessingAudio implements Serializable {
 				energy[i] += frame[i][j] * frame[i][j];
 
 			}
-			// series.getData().add(new
-			// XYChart.Data<Number,Number>(i,energy[i]));
-
-			// System.out.println("energia "+i+" ramki: "+ energy[i]);
-
 		}
 		return energy;
 	}
@@ -385,7 +373,6 @@ public class ProcessingAudio implements Serializable {
 		} else {
 			result = 0.0;
 		}
-		// System.out.println("result "+result);
 
 		return result;
 	}
@@ -417,7 +404,6 @@ public class ProcessingAudio implements Serializable {
 		for (int i = 0; i < wspMFCC.length; i++) {
 			for (int b = 0; b < numberOfFrames; b++) {
 				wspMFCC[i][b] = MFCC[b][i];
-
 			}
 		}
 	}
