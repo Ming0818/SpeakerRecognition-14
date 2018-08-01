@@ -1,7 +1,7 @@
 # SpeakerRecognition
 
 Program recognizes a speaker, basing on earlier processed recordings. 
-In order to match a recording with properly speaker,
+In order to match a recording with proper speaker,
 program uses Dynamic Time Warping algorithm and features computed from a spectrum- and time domain.
 
 In main menu one is able to choose if recognition will be performed with already existing samples or with new freshly recorded.
